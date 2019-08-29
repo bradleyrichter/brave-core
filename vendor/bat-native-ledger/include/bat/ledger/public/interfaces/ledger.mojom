@@ -251,3 +251,9 @@ enum RewardsCategory {
   ONE_TIME_TIP = 8,
   RECURRING_TIP = 16,
 };
+
+enum Environment {
+  STAGING = 0,
+  PRODUCTION = 1,
+  DEVELOPMENT = 2
+};
