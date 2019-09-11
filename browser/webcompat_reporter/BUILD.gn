@@ -4,6 +4,8 @@ source_set("webcompat_reporter") {
   sources = [
     "webcompat_reporter_dialog.cc",
     "webcompat_reporter_dialog.h",
+    "webcompat_reporter_service.cc",
+    "webcompat_reporter_service.h",
   ]
 
   deps = [
@@ -11,5 +13,8 @@ source_set("webcompat_reporter") {
     "//brave/common",
     "//content/public/browser",
     "//ui/web_dialogs",
+    "//net",
+    "//services/network/public/cpp",
+    "//brave/components/brave_referrals/browser",
   ]
 }
