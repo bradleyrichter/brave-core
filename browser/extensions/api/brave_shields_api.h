@@ -147,7 +147,6 @@ class BraveShieldsGetNoScriptControlTypeFunction : public ExtensionFunction {
   ResponseAction Run() override;
 };
 
-
 // Notifies the browser that the shields panel was shown to the user.
 class BraveShieldsOnShieldsPanelShownFunction : public ExtensionFunction {
  public:
@@ -157,6 +156,16 @@ class BraveShieldsOnShieldsPanelShownFunction : public ExtensionFunction {
   ~BraveShieldsOnShieldsPanelShownFunction() override {}
 
   // ExtensionFunction:
+  ResponseAction Run() override;
+};
+
+class BraveShieldsReportBrokenSiteFunction : public ExtensionFunction {
+ public:
+  DECLARE_EXTENSION_FUNCTION("braveShields.reportBrokenSite", UNKNOWN)
+
+ protected:
+  ~BraveShieldsReportBrokenSiteFunction() override {}
+
   ResponseAction Run() override;
 };
 
