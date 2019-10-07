@@ -1083,10 +1083,12 @@ class BraveRewardsBrowserTest :
     const size_t size = probi.size();
     std::string amount = "0";
     if (size > 18) {
-      amount = probi.substr(0, size - 18);
+      amount = probi;
+      amount.insert(size - 18, ".");
     }
 
-    UpdateContributionBalance(std::stod(amount), true);
+    double amount_double = std::stod(amount);
+    UpdateContributionBalance(amount_double, true);
 
     const auto converted_result = static_cast<ledger::Result>(result);
     const auto converted_type =
