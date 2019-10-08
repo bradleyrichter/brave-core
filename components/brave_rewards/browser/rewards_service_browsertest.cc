@@ -588,6 +588,11 @@ class BraveRewardsBrowserTest :
     return rewards_url;
   }
 
+  GURL new_tab_url() {
+    GURL new_tab_url("brave://newtab");
+    return new_tab_url;
+  }
+
   GURL uphold_auth_url() {
     GURL url("chrome://rewards/uphold/authorization?"
              "code=0c42b34121f624593ee3b04cbe4cc6ddcd72d&state=123456789");
@@ -598,9 +603,10 @@ class BraveRewardsBrowserTest :
     return browser()->tab_strip_model()->GetActiveWebContents();
   }
 
-  void EnableRewards() {
+  void EnableRewards(bool use_new_tab = false) {
     // Load rewards page
-    ui_test_utils::NavigateToURL(browser(), rewards_url());
+    GURL page_url = use_new_tab ? new_tab_url() : rewards_url();
+    ui_test_utils::NavigateToURL(browser(), page_url);
     WaitForLoadStop(contents());
     // Opt in and create wallet to enable rewards
     ASSERT_TRUE(ExecJs(contents(),
@@ -2600,4 +2606,10 @@ IN_PROC_BROWSER_TEST_F(BraveRewardsBrowserTest,
 
   // Stop observing the Rewards service
   rewards_service_->RemoveObserver(this);
+}
+
+IN_PROC_BROWSER_TEST_F(
+  BraveRewardsBrowserTest,
+  NewTabPageWidgetEnableRewards) {
+  EnableRewards(true);
 }
