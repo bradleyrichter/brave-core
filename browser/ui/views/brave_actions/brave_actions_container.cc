@@ -123,6 +123,15 @@ bool BraveActionsContainer::ShouldAddBraveRewardsAction() const {
          !prefs->GetBoolean(kHideBraveRewardsButton);
 }
 
+BraveActionViewController* BraveActionsContainer::GetExtensionViewController(
+    const std::string& extension_id) {
+  if (!IsContainerAction(extension_id)) {
+    return nullptr;
+  }
+  return static_cast<BraveActionViewController*>(
+      actions_[extension_id].view_controller_.get());
+}
+
 void BraveActionsContainer::AddAction(const extensions::Extension* extension,
                                       int pos) {
   DCHECK(extension);

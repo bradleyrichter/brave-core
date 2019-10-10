@@ -23,6 +23,7 @@ source_set("extensions") {
     "api/rewards_notifications_api.h",
     "api/settings_private/brave_prefs_util.cc",
     "api/settings_private/brave_prefs_util.h",
+    "brave_browser_action_util.cc",
     "brave_component_extension_resource_manager.cc",
     "brave_component_extension_resource_manager.h",
     "brave_component_loader.cc",

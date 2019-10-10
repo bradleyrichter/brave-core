@@ -13,12 +13,15 @@
 #include "base/bind.h"
 #include "base/strings/string_number_conversions.h"
 #include "brave/browser/brave_rewards/tip_dialog.h"
+#include "brave/browser/extensions/brave_browser_action_util.h"
 #include "brave/common/extensions/api/brave_rewards.h"
+#include "brave/common/extensions/extension_constants.h"
 #include "brave/components/brave_ads/browser/ads_service.h"
 #include "brave/components/brave_ads/browser/ads_service_factory.h"
 #include "brave/components/brave_rewards/browser/rewards_service.h"
 #include "brave/components/brave_rewards/browser/rewards_service_factory.h"
 #include "chrome/browser/extensions/api/tabs/tabs_constants.h"
+#include "chrome/browser/extensions/chrome_extension_function_details.h"
 #include "chrome/browser/extensions/extension_tab_util.h"
 #include "chrome/browser/profiles/profile.h"
 #include "content/public/browser/web_contents.h"
@@ -50,6 +53,45 @@ ExtensionFunction::ResponseAction BraveRewardsCreateWalletFunction::Run() {
             &BraveRewardsCreateWalletFunction::OnCreateWallet,
             weak_factory_.GetWeakPtr()));
   }
+  return RespondNow(NoArguments());
+}
+
+BraveRewardsOpenBrowserActionUIFunction::
+    ~BraveRewardsOpenBrowserActionUIFunction(
+    ) {
+}
+
+ExtensionFunction::ResponseAction BraveRewardsOpenBrowserActionUIFunction::Run(
+    ) {
+  std::unique_ptr<brave_rewards::OpenBrowserActionUI::Params> params(
+      brave_rewards::OpenBrowserActionUI::Params::Create(*args_));
+  EXTENSION_FUNCTION_VALIDATE(params.get());
+  // If the tabId is specified, find it. Otherwise get the active tab
+  // in the current window for the profile
+  Browser* browser = nullptr;
+  if (!params->tab_id.get()) {
+    browser = ChromeExtensionFunctionDetails(this).GetCurrentBrowser();
+  } else {
+    int tab_id = *params->tab_id;
+    if (!ExtensionTabUtil::GetTabById(
+            tab_id,
+            browser_context(),
+            include_incognito_information(),
+            &browser,
+            nullptr,
+            nullptr,
+            nullptr)) {
+        return RespondNow(Error(tabs_constants::kTabNotFoundError,
+                              base::NumberToString(tab_id)));
+    }
+  }
+  if (!browser)
+      return RespondNow(Error(tabs_constants::kNoCurrentWindowError));
+  // Get action controller for extension
+  BraveBrowserActionUtil::ExecuteActionUI(
+    browser,
+    brave_rewards_extension_id,
+    std::move(params->relative_path));
   return RespondNow(NoArguments());
 }
 
