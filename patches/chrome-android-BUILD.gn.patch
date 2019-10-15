@@ -1,5 +1,5 @@
 diff --git a/chrome/android/BUILD.gn b/chrome/android/BUILD.gn
-index ac52a743f73b7109f57df8f677518ca717812ba7..ff92fd9e070e290566ebfb401afc3b3a27ba353d 100644
+index 91716bcfcd80cd3f3f576a10227e47caccc89b28..873a9801df579d6e19419150f8b9335321b70ca7 100644
 --- a/chrome/android/BUILD.gn
 +++ b/chrome/android/BUILD.gn
 @@ -32,7 +32,7 @@ import("java_sources.gni")
