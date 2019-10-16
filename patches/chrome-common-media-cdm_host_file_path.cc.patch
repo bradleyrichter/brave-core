@@ -1,5 +1,5 @@
 diff --git a/chrome/common/media/cdm_host_file_path.cc b/chrome/common/media/cdm_host_file_path.cc
-index a454dd3450ae06949ab38f2d854b7a9f811604ff..9f33089f961de3094bdbf644eeef3bf572ca5b95 100644
+index a454dd3450ae06949ab38f2d854b7a9f811604ff..1bb000892c5ce19238c72d53f46b5c3fb4faeaf8 100644
 --- a/chrome/common/media/cdm_host_file_path.cc
 +++ b/chrome/common/media/cdm_host_file_path.cc
 @@ -18,7 +18,7 @@
@@ -7,7 +7,7 @@ index a454dd3450ae06949ab38f2d854b7a9f811604ff..9f33089f961de3094bdbf644eeef3bf5
  #endif
  
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || defined(BRAVE_CHROMIUM_BUILD)
  
  namespace {
  

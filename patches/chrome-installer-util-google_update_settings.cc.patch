@@ -1,5 +1,5 @@
 diff --git a/chrome/installer/util/google_update_settings.cc b/chrome/installer/util/google_update_settings.cc
-index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93caf729de 100644
+index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..4dbf3e96c2aae5caf2eee728189cd91d00243b10 100644
 --- a/chrome/installer/util/google_update_settings.cc
 +++ b/chrome/installer/util/google_update_settings.cc
 @@ -29,7 +29,11 @@ using base::win::RegKey;
@@ -19,7 +19,7 @@ index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93
  const GoogleUpdateSettings::UpdatePolicy
      GoogleUpdateSettings::kDefaultUpdatePolicy =
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || (defined(BRAVE_CHROMIUM_BUILD) && defined(OFFICIAL_BUILD))  // NOLINT
          GoogleUpdateSettings::AUTOMATIC_UPDATES;
  #else
          GoogleUpdateSettings::UPDATES_DISABLED;
@@ -28,7 +28,7 @@ index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93
  }
  
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || (defined(BRAVE_CHROMIUM_BUILD) && defined(OFFICIAL_BUILD))  // NOLINT
  // Populates |update_policy| with the UpdatePolicy enum value corresponding to a
  // DWORD read from the registry and returns true if |value| is within range.
  // If |value| is out of range, returns false without modifying |update_policy|.
@@ -37,7 +37,7 @@ index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93
    UpdatePolicy update_policy = kDefaultUpdatePolicy;
  
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || (defined(BRAVE_CHROMIUM_BUILD) && defined(OFFICIAL_BUILD))  // NOLINT
    DCHECK(!app_guid.empty());
    RegKey policy_key;
  
@@ -46,7 +46,7 @@ index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93
  // static
  bool GoogleUpdateSettings::AreAutoupdatesEnabled() {
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || (defined(BRAVE_CHROMIUM_BUILD) && defined(OFFICIAL_BUILD))  // NOLINT
    // Check the auto-update check period override. If it is 0 or exceeds the
    // maximum timeout, then for all intents and purposes auto updates are
    // disabled.
@@ -55,7 +55,7 @@ index 441ed6d50d5cb4edcd665665fca7887f034ff6a0..db0493d59722ba0f3c20c2145e9b7d93
  // static
  bool GoogleUpdateSettings::ReenableAutoupdates() {
 -#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
-+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
++#if BUILDFLAG(GOOGLE_CHROME_BRANDING) || (defined(BRAVE_CHROMIUM_BUILD) && defined(OFFICIAL_BUILD))  // NOLINT
    int needs_reset_count = 0;
    int did_reset_count = 0;
  
