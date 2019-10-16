@@ -1,5 +1,5 @@
 diff --git a/chrome/android/BUILD.gn b/chrome/android/BUILD.gn
-index ac52a743f73b7109f57df8f677518ca717812ba7..ff92fd9e070e290566ebfb401afc3b3a27ba353d 100644
+index 91716bcfcd80cd3f3f576a10227e47caccc89b28..9b4516072609c20175bc37962cd91835c46838fb 100644
 --- a/chrome/android/BUILD.gn
 +++ b/chrome/android/BUILD.gn
 @@ -32,7 +32,7 @@ import("java_sources.gni")
@@ -19,7 +19,15 @@ index ac52a743f73b7109f57df8f677518ca717812ba7..ff92fd9e070e290566ebfb401afc3b3a
      "//chrome/android/webapk/libs/common:splash_resources",
      "//chrome/app:java_strings_grd",
      "//chrome/browser/ui/android/widget:ui_widget_java_resources",
-@@ -543,6 +544,7 @@ java_group("chrome_all_java") {
+@@ -276,6 +277,7 @@ android_library("chrome_java") {
+     "$google_play_services_package:google_play_services_gcm_java",
+     "$google_play_services_package:google_play_services_iid_java",
+     "$google_play_services_package:google_play_services_tasks_java",
++    "$google_play_services_package:google_play_services_safetynet_java",
+     "//base:base_java",
+     "//base:jni_java",
+     "//chrome/android/features/keyboard_accessory:public_java",
+@@ -543,6 +545,7 @@ java_group("chrome_all_java") {
  group("jni_headers") {
    public_deps = [
      ":chrome_jni_headers",
@@ -27,7 +35,7 @@ index ac52a743f73b7109f57df8f677518ca717812ba7..ff92fd9e070e290566ebfb401afc3b3a
      "//chrome/android/features/autofill_assistant:jni_headers",
      "//chrome/android/features/keyboard_accessory:jni_headers",
      "//chrome/android/features/media_router:jni_headers",
-@@ -1422,6 +1424,7 @@ if (current_toolchain == default_toolchain) {
+@@ -1422,6 +1425,7 @@ if (current_toolchain == default_toolchain) {
          ":${_variant}_locale_pak_assets",
          ":${_variant}_paks",
        ]
