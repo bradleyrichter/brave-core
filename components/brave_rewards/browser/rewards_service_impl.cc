@@ -82,7 +82,7 @@
 #include "url/gurl.h"
 #include "url/url_canon_stdstring.h"
 
-#if !defined(OS_ANDROID)
+#if defined(BRAVE_CHROMIUM_BUILD)
 #include "brave/components/brave_rewards/resources/grit/brave_rewards_resources.h"
 #include "components/grit/brave_components_resources.h"
 #else
